@@ -1,7 +1,7 @@
 a = [1, 4, 6, 3, 9, 12, 20]
+#numberchcker
 
-x = int(input("enter number"))
-if x in a:
-    print("found")
-else:
-    print("not found")
+search = int(input("Enter number"))
+for i in a:
+    if i == search:
+        print("Found")
