@@ -1,7 +1,7 @@
-a = [1, 4, 6, 3, 9, 12, 20]
+import numpy as np
+from PIL import Image
 
-x = int(input("enter number"))
-if x in a:
-    print("found")
-else:
-    print("not found")
+def load_image(image_path):
+    return np.array(Image.open(image_path).convert("L"))
+
+print(load_image(r"image\pinguin.png"))
