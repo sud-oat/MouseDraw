@@ -12,9 +12,9 @@ with open('image.txt', 'w') as file:
         for pixel in row:
             divider = 255/2
             if pixel>=divider:
-                file.write(1)
+                file.write("1")
             else:
-                file.write(0)
+                file.write("0")
 
         file.write("\n")
 
