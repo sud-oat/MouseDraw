@@ -10,7 +10,7 @@ array = load_image(r"image\pinguin.png")
 with open('image.txt', 'w') as file:
     for row in array:
         for pixel in row:
-            
+            print("Lol")
 
         file.write("\n")
 
