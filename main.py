@@ -57,7 +57,7 @@ def main():
     bit_image = process_image_to_bits(array)
 
     print("Starting in 3 seconds...")
-    time.sleep(0.3)
+    time.sleep(3)
 
     start_x, start_y = pyautogui.position()
 
