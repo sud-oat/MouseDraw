@@ -2,19 +2,20 @@ import numpy as np
 from PIL import Image
 
 def load_image(image_path):
-    return np.array(Image.open(image_path).convert("L"))
+    img = Image.open(image_path).convert("L")
+    width, height = img.size
+    return np.array(img), width, height
 
-array = load_image(r"image\pinguin.png")
-
+array, width, height = load_image(r"image\m.png")
+bit_image = [[None for x in range(width)] for y in range(height)] 
 
 with open('image.txt', 'w') as file:
-    for row in array:
-        for pixel in row:
-            divider = 255/2
-            if pixel>=divider:
-                file.write("1")
+    for row_counter, row in enumerate(array):
+        for pixel_counter, pixel in enumerate(row):
+            if pixel>=128:
+                bit_image[row_counter][pixel_counter] = 0
             else:
-                file.write("0")
+                bit_image[row_counter][pixel_counter] = 1
 
-        file.write("\n")
-
+for row in bit_image:
+    print(row)
