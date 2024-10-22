@@ -6,8 +6,7 @@ import time
 
 def load_image(image_path):
     img = Image.open(image_path).convert("L")
-    width, height = img.size
-    return np.array(img), width, height
+    return np.array(img)
 
 
 def process_image_to_bits(array):
@@ -18,7 +17,6 @@ def process_image_to_bits(array):
         for pixel in row:
             row_bits += "0" if pixel >= 128 else "1"
         bit_image.append(row_bits)
-
     return bit_image
 
 
@@ -53,17 +51,18 @@ def draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.00
 
 
 def main():
+    pyautogui.FAILSAFE = False
 
-    array = load_image(r"image\m.png")
+    array = load_image(r"image\Mona Lisa.jpg")
     bit_image = process_image_to_bits(array)
 
     print("Starting in 3 seconds...")
-    time.sleep(3)
+    time.sleep(0.3)
 
     start_x, start_y = pyautogui.position()
 
     start_time = time.time()
-    draw_from_bits(bit_image, start_x, start_y, pixel_size=2, drawing_speed=0.0001)
+    draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.001)
     print(f"Drawing completed in {time.time() - start_time:.2f} seconds")
 
     pyautogui.mouseUp()
@@ -71,3 +70,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+0
