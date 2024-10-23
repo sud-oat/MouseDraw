@@ -3,7 +3,6 @@ from PIL import Image
 import pyautogui
 import time
 
-
 def load_image(image_path):
     img = Image.open(image_path).convert("L")
     return np.array(img)
@@ -51,9 +50,9 @@ def draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.00
 
 
 def main():
-    pyautogui.FAILSAFE = False
+    source_image = r""
 
-    array = load_image(r"image\Mona Lisa.jpg")
+    array = load_image(source_image)
     bit_image = process_image_to_bits(array)
 
     print("Starting in 3 seconds...")
