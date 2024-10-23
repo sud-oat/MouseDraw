@@ -23,8 +23,9 @@ def process_image_to_bits(array):
                 streak_length = i - streak_start + 1
 
                 if row[streak_start] == "1": 
-
+                    optimised_row_bits = int(streak_length + "1")
                 else:
+                    optimised_row_bits = int(streak_length + "0")
                     
                 streak_start = i + 1
     return bit_image
