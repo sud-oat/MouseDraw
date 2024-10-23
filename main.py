@@ -33,8 +33,8 @@ def process_image_to_bits(array):
     return bit_image
 
 
-def draw_from_bits(bit_image, pixel_size=1, drawing_speed=0.001):
-    pyautogui.PAUSE = drawing_speed
+def draw_from_bits(bit_image, pixel_size=1):
+    pyautogui.PAUSE = 0
     start_x, current_y = pyautogui.position()
 
     for row in bit_image:
@@ -62,7 +62,7 @@ def main():
     time.sleep(3)
 
     start_time = time.time()
-    draw_from_bits(bit_image, pixel_size=1, drawing_speed=0.001)
+    draw_from_bits(bit_image, pixel_size=1,)
     print(f"Drawing completed in {time.time() - start_time:.2f} seconds")
 
     pyautogui.mouseUp()
