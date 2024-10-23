@@ -16,38 +16,17 @@ def process_image_to_bits(array):
         row_bits = ""
         for pixel in row:
             row_bits += "0" if pixel >= 128 else "1"
-        print(row_bits)
-    
-    pyautogui.PAUSE = drawing_speed #Amount of time between each action
-
-    current_y = start_y
-
-    for row in bit_image:
-        current_x = start_x
-        pyautogui.moveTo(current_x, current_y) #Move cursor to where we set the position of cursor
-
         streak_start = 0
-        for i in range(len(row)):
-            if i == len(row) - 1 or row[i] != row[i + 1]: #Check if the index value is the last value or if there is a difference in colour between current position and next
+
+        for i in range(len(row_bits)):
+            if i == len(row_bits) - 1 or row_bits[i] != row_bits[i + 1]:
                 streak_length = i - streak_start + 1
 
-                if row[streak_start] == "1": #Calculates the length the image needs to draw and draws that length
-                    pyautogui.mouseDown()
-                    pyautogui.moveTo(
-                        current_x + (streak_length * pixel_size), current_y
-                    )
-                    pyautogui.mouseUp()
-                else: #Moves the cursor without drawing anything
-                    pyautogui.moveTo(
-                        current_x + (streak_length * pixel_size), current_y
-                    )
+                if row[streak_start] == "1": 
 
-                current_x += streak_length * pixel_size #Changes x coordinate to next line
+                else:
+                    
                 streak_start = i + 1
-
-        current_y += pixel_size #Changes y coordinate to next line
-
-
     return bit_image
 
 
