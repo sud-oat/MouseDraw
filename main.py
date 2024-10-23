@@ -16,42 +16,44 @@ def process_image_to_bits(array):
         row_bits = ""
         for pixel in row:
             row_bits += "0" if pixel >= 128 else "1"
-        bit_image.append(row_bits)
+        streak_start = 0
+        row_container = []  # Initialize row_container for each row
+
+        for i in range(len(row_bits)):
+            if i == len(row_bits) - 1 or row_bits[i] != row_bits[i + 1]:
+                streak_length = i - streak_start + 1
+                if row_bits[streak_start] == "1": 
+                    container = [streak_length, 1]
+                else:
+                    container = [streak_length, 0]
+                row_container.append(container)  # Append the container to row_container
+                streak_start = i + 1
+        
+        bit_image.append(row_container)  # Append the completed row_container to bit_image
     return bit_image
 
 
-def draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.001):
-    pyautogui.PAUSE = drawing_speed #Amount of time between each action
+def draw_from_bits(bit_image, pixel_size=1):
+    pyautogui.PAUSE = 0
+    start_x, current_y = pyautogui.position()
 
-    current_y = start_y
     for row in bit_image:
         current_x = start_x
-        pyautogui.moveTo(current_x, current_y) #Move cursor to where we set the position of cursor
-
-        streak_start = 0
-        for i in range(len(row)):
-            if i == len(row) - 1 or row[i] != row[i + 1]: #Check if the index value is the last value or if there is a difference in colour between current position and next
-                streak_length = i - streak_start + 1
-
-                if row[streak_start] == "1": #Calculates the length the image needs to draw and draws that length
-                    pyautogui.mouseDown()
-                    pyautogui.moveTo(
-                        current_x + (streak_length * pixel_size), current_y
-                    )
-                    pyautogui.mouseUp()
-                else: #Moves the cursor without drawing anything
-                    pyautogui.moveTo(
-                        current_x + (streak_length * pixel_size), current_y
-                    )
-
-                current_x += streak_length * pixel_size #Changes x coordinate to next line
-                streak_start = i + 1
-
-        current_y += pixel_size #Changes y coordinate to next line
+        pyautogui.moveTo(current_x, current_y)
+        for streak, bit in row:
+            current_x += streak * pixel_size
+            if bit == 1:
+                pyautogui.mouseDown()
+                pyautogui.moveTo(current_x, current_y)
+                pyautogui.mouseUp()
+            else:
+                pyautogui.moveTo(current_x, current_y)
+        pyautogui.mouseUp()
+        current_y += pixel_size
 
 
 def main():
-    source_image = r"image\background.jpg"
+    source_image = r"image\pinguin.png"
 
     array = load_image(source_image)
     bit_image = process_image_to_bits(array)
@@ -59,10 +61,8 @@ def main():
     print("Starting in 3 seconds...")
     time.sleep(3)
 
-    start_x, start_y = pyautogui.position() #set starting position to that of our cursor
-
     start_time = time.time()
-    draw_from_bits(bit_image, start_x, start_y, pixel_size=0.5, drawing_speed=0.001)
+    draw_from_bits(bit_image, pixel_size=1,)
     print(f"Drawing completed in {time.time() - start_time:.2f} seconds")
 
     pyautogui.mouseUp()
@@ -70,4 +70,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-0
