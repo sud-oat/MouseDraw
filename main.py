@@ -17,10 +17,7 @@ def process_image_to_bits(array):
         for pixel in row:
             row_bits += "0" if pixel >= 128 else "1"
         print(row_bits)
-    return bit_image
-
-
-def draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.001):
+    
     pyautogui.PAUSE = drawing_speed #Amount of time between each action
 
     current_y = start_y
@@ -50,6 +47,12 @@ def draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.00
 
         current_y += pixel_size #Changes y coordinate to next line
 
+
+    return bit_image
+
+
+def draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.001):
+    pass
 
 def main():
     source_image = r"image/m.png"
