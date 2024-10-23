@@ -33,27 +33,28 @@ def process_image_to_bits(array):
     return bit_image
 
 
-def draw_from_bits(bit_image, pixel_size=1):
+def draw_from_bits(bit_image, pixel_size):
     pyautogui.PAUSE = 0
     start_x, current_y = pyautogui.position()
+    
 
     for row in bit_image:
         current_x = start_x
-        pyautogui.moveTo(current_x, current_y)
         for streak, bit in row:
-            current_x += streak * pixel_size
             if bit == 1:
+                pyautogui.moveTo(current_x, current_y)
+                current_x += streak * pixel_size
                 pyautogui.mouseDown()
                 pyautogui.moveTo(current_x, current_y)
                 pyautogui.mouseUp()
             else:
-                pyautogui.moveTo(current_x, current_y)
-        pyautogui.mouseUp()
+                current_x += streak * pixel_size
         current_y += pixel_size
 
 
 def main():
     source_image = r"image\pinguin.png"
+    pixel_size = 1
 
     array = load_image(source_image)
     bit_image = process_image_to_bits(array)
@@ -62,10 +63,9 @@ def main():
     time.sleep(3)
 
     start_time = time.time()
-    draw_from_bits(bit_image, pixel_size=1,)
+    draw_from_bits(bit_image, pixel_size)
     print(f"Drawing completed in {time.time() - start_time:.2f} seconds")
 
-    pyautogui.mouseUp()
 
 
 if __name__ == "__main__":
