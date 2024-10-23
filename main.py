@@ -18,16 +18,18 @@ def process_image_to_bits(array):
             row_bits += "0" if pixel >= 128 else "1"
         streak_start = 0
 
+        optimised_row_bits = ""
         for i in range(len(row_bits)):
             if i == len(row_bits) - 1 or row_bits[i] != row_bits[i + 1]:
                 streak_length = i - streak_start + 1
 
-                if row[streak_start] == "1": 
-                    optimised_row_bits = int(streak_length + "1")
+                if row_bits[streak_start] == "1": 
+                    optimised_row_bits += str(streak_length) + "," + "1" + ","
                 else:
-                    optimised_row_bits = int(streak_length + "0")
+                    optimised_row_bits += str(streak_length) + "," + "0" + ","
                     
                 streak_start = i + 1
+        bit_image.append(optimised_row_bits)
     return bit_image
 
 
@@ -39,6 +41,7 @@ def main():
 
     array = load_image(source_image)
     bit_image = process_image_to_bits(array)
+    print(bit_image)
 
     print("Starting in 3 seconds...")
     time.sleep(3)
