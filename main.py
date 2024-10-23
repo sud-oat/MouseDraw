@@ -16,7 +16,7 @@ def process_image_to_bits(array):
         row_bits = ""
         for pixel in row:
             row_bits += "0" if pixel >= 128 else "1"
-        bit_image.append(row_bits)
+        print(row_bits)
     return bit_image
 
 
@@ -24,6 +24,7 @@ def draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.00
     pyautogui.PAUSE = drawing_speed #Amount of time between each action
 
     current_y = start_y
+
     for row in bit_image:
         current_x = start_x
         pyautogui.moveTo(current_x, current_y) #Move cursor to where we set the position of cursor
@@ -51,7 +52,7 @@ def draw_from_bits(bit_image, start_x, start_y, pixel_size=1, drawing_speed=0.00
 
 
 def main():
-    source_image = r"image\background.jpg"
+    source_image = r"image/m.png"
 
     array = load_image(source_image)
     bit_image = process_image_to_bits(array)
@@ -62,7 +63,7 @@ def main():
     start_x, start_y = pyautogui.position() #set starting position to that of our cursor
 
     start_time = time.time()
-    draw_from_bits(bit_image, start_x, start_y, pixel_size=0.5, drawing_speed=0.001)
+    # draw_from_bits(bit_image, start_x, start_y, pixel_size=0.5, drawing_speed=0.001)
     print(f"Drawing completed in {time.time() - start_time:.2f} seconds")
 
     pyautogui.mouseUp()
