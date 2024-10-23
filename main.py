@@ -29,7 +29,7 @@ def process_image_to_bits(array):
                     optimised_row_bits += str(streak_length) + "," + "0" + ","
                     
                 streak_start = i + 1
-        bit_image.append(optimised_row_bits)
+        bit_image.append(optimised_row_bits.strip(","))
     return bit_image
 
 
