@@ -42,11 +42,13 @@ def main():
     source_image = r"image\pinguin.png"
     pixel_size = 1
     delay = 0
+    image_average = True
 
     start_processing_time = time.time()
     
     image_array = load_image(source_image)
-    threshold = np.mean(image_array)
+    threshold = np.mean(image_array) if image_average else 128
+    print(threshold)
     
     bit_image = process_image_to_bits(image_array, threshold)
 
