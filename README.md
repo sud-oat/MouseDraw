@@ -11,7 +11,7 @@ cd MouseDraw
 ### INSTALL REQUIREMENTS:
 
 ```
-pip install autogui numpy pillow
+pip install pyautogui numpy pillow
 ```
 
 ### USAGE:
