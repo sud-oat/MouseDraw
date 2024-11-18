@@ -39,7 +39,7 @@ def draw_from_bits(bit_image, pixel_size, delay):
         current_y += pixel_size
 
 def main():
-    source_image = r"image\pinguin.png"
+    source_image = r"image\images.png"
     pixel_size = 1
     delay = 0
     image_average = True
@@ -48,7 +48,6 @@ def main():
     
     image_array = load_image(source_image)
     threshold = np.mean(image_array) if image_average else 128
-    print(threshold)
     
     bit_image = process_image_to_bits(image_array, threshold)
 
